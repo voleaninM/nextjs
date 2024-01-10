@@ -2,9 +2,10 @@
   /* colors */
   --color-black: black;
   --color-white: white;
-  --color-light-grey: #b4b4b4;
+  --color-mid-grey: #b4b4b4;
+  --color-light-grey: #f0f0f0;
   --color-dark-grey: #909090;
   --color-blue: #072ac8;
   --color-dark-blue: #0d47a1;
-  --color-light-blue: #2196f3;
+  --color-light-blue: #e8f4f8;
 }

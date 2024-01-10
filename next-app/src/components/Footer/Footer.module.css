@@ -29,7 +29,7 @@
 
 .link {
   text-decoration: none;
-  color: var(--color-light-grey);
+  color: var(--color-mid-grey);
   transition: 0.2s ease-in-out;
 }
 .link:hover {

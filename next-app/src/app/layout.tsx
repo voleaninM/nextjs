@@ -10,13 +10,14 @@ export const metadata: Metadata = {
   description: "Find and rent cars",
 };
 const manrope = Manrope({ subsets: ["latin"], variable: "--font-manrope" });
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={manrope.className}>
+    <html lang="en" className={`${manrope.className} ${manrope.variable}`}>
       <body>
         <Navbar />
         {children}
