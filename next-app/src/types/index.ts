@@ -12,3 +12,14 @@ export type CarT = {
   transmission: string;
   year: number;
 };
+export type FilterT = {
+  make?: string;
+  year?: number;
+  model?: string;
+  limit?: number;
+  fuel?: string;
+};
+export type OptionT = {
+  title: string;
+  value: string;
+};

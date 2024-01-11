@@ -1,12 +1,16 @@
 "use client";
 import React, { useState } from "react";
 import styles from "./SearchBar.module.css";
-import Image from "next/image";
 import { manufacturers } from "@/constants";
+import { SearchBarButton, Input } from "@/components";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function SearchBar() {
-  const [inputValue, setInputValue] = useState("");
+  const [make, setMake] = useState("");
   const [results, setResults] = useState<string[]>([]);
+  const [model, setModel] = useState("");
+  const router = useRouter();
   function handleFilter(e: React.ChangeEvent<HTMLInputElement>) {
     const searchResult = e.target.value.toLowerCase();
 
@@ -18,27 +22,62 @@ export default function SearchBar() {
     } else {
       setResults(filteredData);
     }
-    setInputValue(searchResult);
+    setMake(searchResult);
   }
   function handleResultClick(brand: string) {
-    setInputValue(brand);
+    setMake(brand);
     setResults([]);
   }
 
-  function handleSearch() {}
+  function handleSearch(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    if (make === "" && model === "") {
+      alert("Provide values");
+    }
+    updateSearchParams(model.toLowerCase(), make.toLowerCase());
+    setMake("");
+    setModel("");
+  }
+
+  function updateSearchParams(model: string, make: string) {
+    const searchParams = new URLSearchParams(window.location.search);
+    if (model) {
+      searchParams.set("model", model);
+    } else {
+      searchParams.delete("model");
+    }
+    if (make) {
+      searchParams.set("make", make);
+    } else {
+      searchParams.delete("make");
+    }
+
+    const newPathName = `${
+      window.location.pathname
+    }?${searchParams.toString()}`;
+    console.log(newPathName);
+
+    router.push(newPathName, { scroll: false });
+  }
   return (
     <form className={styles.searchBar} onSubmit={handleSearch}>
-      <div className={styles.inputContainer}>
-        <button className={styles.button}>
-          <Image src="/car-logo.svg" width={20} height={20} alt="car logo" />
-        </button>
-        <input
-          placeholder="Search for a brand"
-          className={styles.input}
-          onChange={handleFilter}
-          value={inputValue}
-        />
-      </div>
+      <Input
+        onChange={handleFilter}
+        value={make}
+        placeholder="Search for a brand"
+      >
+        <Image src="/car-logo.svg" width={20} height={20} alt="car logo" />
+      </Input>
+      <SearchBarButton additionalStyles={styles.makeButton} />
+
+      <Input
+        value={model}
+        onChange={(e) => setModel(e.target.value)}
+        placeholder="Search for a model"
+      >
+        <Image src="/model-icon.png" width={20} height={20} alt="car logo" />
+      </Input>
+      <SearchBarButton />
 
       <ul className={`${styles.list} ${results.length > 0 && styles.active}`}>
         {results.map((brand) => (

@@ -1,0 +1,9 @@
+.button {
+  z-index: 10;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+.image {
+  object-fit: contain;
+}

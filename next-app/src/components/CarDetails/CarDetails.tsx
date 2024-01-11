@@ -7,20 +7,7 @@ type Props = {
   car: CarT;
 };
 export default function CarDetails({ car }: Props) {
-  const {
-    city_mpg,
-    carClass,
-    combination_mpg,
-    cylinders,
-    displacement,
-    drive,
-    fuel_type,
-    highway_mpg,
-    make,
-    model,
-    transmission,
-    year,
-  } = car;
+  const { make, model } = car;
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
@@ -28,7 +15,6 @@ export default function CarDetails({ car }: Props) {
           src={generateCarImageUrl(car)}
           alt="car"
           fill
-          priority
           className={styles.image}
         />
       </div>
@@ -39,7 +25,6 @@ export default function CarDetails({ car }: Props) {
             src={generateCarImageUrl(car, "29")}
             alt="car"
             fill
-            priority
             className={styles.image}
           />
         </div>
@@ -48,7 +33,6 @@ export default function CarDetails({ car }: Props) {
             src={generateCarImageUrl(car, "33")}
             alt="car"
             fill
-            priority
             className={styles.image}
           />
         </div>

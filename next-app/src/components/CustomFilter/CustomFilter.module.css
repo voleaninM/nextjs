@@ -1,0 +1,13 @@
+.filter {
+}
+.select {
+  font-family: var(--font-manrope);
+  font-size: 1.6rem;
+  border: none;
+  background-color: var(--color-white);
+  color: var(--color-black);
+  height: 4rem;
+  padding: 0 1rem;
+  border-radius: 0.4rem;
+  box-shadow: var(--box-shadow-2);
+}

@@ -2,22 +2,32 @@
 import { CarT } from "@/types";
 import styles from "./CarCard.module.css";
 import React from "react";
-import { calculateCarRent, generateCarImageUrl } from "@/utils";
+import {
+  calculateCarRent,
+  generateCarImageUrl,
+  updateSearchParams,
+} from "@/utils";
 import Image from "next/image";
-import Button from "@/components/Button/Button";
 import CarDetails from "@/components/CarDetails/CarDetails";
 import Modal from "@/components/Modal/Modal";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import Link from "next/link";
+import Button from "@/components/Button/Button";
 type Props = {
   car: CarT;
 };
+
 export default function CarCard({ car }: Props) {
   const { model, make, transmission, year, drive, city_mpg } = car;
   const carRent = calculateCarRent(city_mpg, year);
   const searchParams = useSearchParams();
-  const modal = searchParams.has("modal");
+  const router = useRouter();
 
+  const openModal = () => {
+    const newPathName = updateSearchParams("modal", "true");
+    router.push(newPathName, { scroll: false });
+  };
+  const modal = searchParams.has("modal");
   return (
     <div className={styles.car}>
       <h2 className={`${styles.model} heading-2`}>
@@ -59,9 +69,9 @@ export default function CarCard({ car }: Props) {
             <p className="subtitle-2">{city_mpg} MPG</p>
           </div>
         </div>
-        <Link href="/?modal=true" className={styles.button} scroll={false}>
+        <Button onClick={openModal} additionalStyles={styles.button}>
           View More
-        </Link>
+        </Button>
       </div>
       {modal && (
         <Modal>

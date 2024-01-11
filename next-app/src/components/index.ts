@@ -7,7 +7,10 @@ import CustomFilter from "./CustomFilter/CustomFilter";
 import CarCards from "./CarCards/CarCards";
 import CarDetails from "./CarDetails/CarDetails";
 import Modal from "./Modal/Modal";
+import Input from "./Input/Input";
+import ShowMore from "./ShowMore/ShowMore";
 import CarCard from "./CarCards/CarCard/CarCard";
+import SearchBarButton from "./SearchBar/SearchBarButton/SearchBarButton";
 
 export {
   Hero,
@@ -20,4 +23,7 @@ export {
   CarCard,
   CarDetails,
   Modal,
+  SearchBarButton,
+  Input,
+  ShowMore,
 };
