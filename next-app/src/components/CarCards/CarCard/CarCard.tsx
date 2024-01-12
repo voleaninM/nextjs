@@ -11,7 +11,6 @@ import Image from "next/image";
 import CarDetails from "@/components/CarDetails/CarDetails";
 import Modal from "@/components/Modal/Modal";
 import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
 import Button from "@/components/Button/Button";
 type Props = {
   car: CarT;
@@ -43,7 +42,7 @@ export default function CarCard({ car }: Props) {
           src={generateCarImageUrl(car)}
           alt="car"
           fill
-          priority
+          sizes="(max-width: 640px) 100vw, 25vw"
           className={styles.image}
         />
       </div>

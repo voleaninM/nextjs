@@ -41,7 +41,6 @@ export default function CarDetails({ car }: Props) {
             src={generateCarImageUrl(car, "13")}
             alt="car"
             fill
-            priority
             className={styles.image}
           />
         </div>

@@ -21,6 +21,7 @@ export default function Hero() {
           src="/hero.png"
           alt="hero"
           fill={true}
+          sizes="(min-width: 1500px) 630px, (min-width: 1080px) calc(60.75vw - 269px), calc(100vw - 80px)"
           className={styles.image}
           priority={true}
         />
