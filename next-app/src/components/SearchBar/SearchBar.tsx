@@ -1,24 +1,29 @@
 "use client";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import styles from "./SearchBar.module.css";
 import { manufacturers } from "@/constants";
 import { SearchBarButton, Input } from "@/components";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import useClickedOutside from "@/utils/useClickedOutside";
 
 export default function SearchBar() {
   const [make, setMake] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const formRef = useRef(null);
   const [results, setResults] = useState<string[]>([]);
   const [model, setModel] = useState("");
   const router = useRouter();
   function handleFilter(e: React.ChangeEvent<HTMLInputElement>) {
     const searchResult = e.target.value.toLowerCase();
+    setIsOpen(true);
 
     const filteredData = manufacturers.filter((value) =>
       value.toLowerCase().includes(searchResult)
     );
     if (searchResult === "") {
       setResults([]);
+      setIsOpen(false);
     } else {
       setResults(filteredData);
     }
@@ -58,8 +63,10 @@ export default function SearchBar() {
 
     router.push(newPathName, { scroll: false });
   }
+  useClickedOutside<HTMLFormElement>(formRef, () => setIsOpen(false), isOpen);
+
   return (
-    <form className={styles.searchBar} onSubmit={handleSearch}>
+    <form className={styles.searchBar} onSubmit={handleSearch} ref={formRef}>
       <Input
         onChange={handleFilter}
         value={make}
@@ -78,17 +85,23 @@ export default function SearchBar() {
       </Input>
       <SearchBarButton />
 
-      <ul className={`${styles.list} ${results.length > 0 && styles.active}`}>
-        {results.map((brand) => (
-          <li
-            key={brand}
-            className={styles.result}
-            onClick={() => handleResultClick(brand)}
-          >
-            {brand}
-          </li>
-        ))}
-      </ul>
+      {isOpen && (
+        <ul
+          className={`${styles.list} ${
+            results.length > 0 ? styles.active : ""
+          }`}
+        >
+          {results.map((brand) => (
+            <li
+              key={brand}
+              className={styles.result}
+              onClick={() => handleResultClick(brand)}
+            >
+              {brand}
+            </li>
+          ))}
+        </ul>
+      )}
     </form>
   );
 }

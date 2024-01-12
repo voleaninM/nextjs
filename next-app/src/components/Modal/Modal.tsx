@@ -1,4 +1,3 @@
-"use client";
 import React, { ReactNode } from "react";
 import styles from "./Modal.module.css";
 import { Button } from "@/components";
@@ -13,7 +12,7 @@ export default function Modal({ children, closeModal }: Props) {
   if (!open) return null;
   return (
     <>
-      <div className={styles.overlay}>
+      <div className={styles.overlay} onClick={closeModal}>
         <div className={styles.modal}>
           <Button
             style="outline"
