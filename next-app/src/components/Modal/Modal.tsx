@@ -18,8 +18,8 @@ export default function Modal({ children, closeModal }: Props) {
           <Button
             style="outline"
             onClick={() => {
+              router.back();
               closeModal();
-              router.back;
             }}
             additionalStyles={styles.button}
           >
