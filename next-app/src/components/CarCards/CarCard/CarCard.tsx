@@ -1,7 +1,7 @@
 "use client";
 import { CarT } from "@/types";
 import styles from "./CarCard.module.css";
-import React from "react";
+import React, { useState } from "react";
 import {
   calculateCarRent,
   generateCarImageUrl,
@@ -18,11 +18,14 @@ type Props = {
 
 export default function CarCard({ car }: Props) {
   const { model, make, transmission, year, drive, city_mpg } = car;
+  const [selectedCar, setSelectedCar] = useState<CarT | null>(null);
   const carRent = calculateCarRent(city_mpg, year);
   const searchParams = useSearchParams();
   const router = useRouter();
 
-  const openModal = () => {
+  const openModal = (car: CarT) => {
+    setSelectedCar(car);
+
     const newPathName = updateSearchParams("modal", "true");
     router.push(newPathName, { scroll: false });
   };
@@ -68,13 +71,13 @@ export default function CarCard({ car }: Props) {
             <p className="subtitle-2">{city_mpg} MPG</p>
           </div>
         </div>
-        <Button onClick={openModal} additionalStyles={styles.button}>
+        <Button onClick={() => openModal(car)} additionalStyles={styles.button}>
           View More
         </Button>
       </div>
-      {modal && (
-        <Modal>
-          <CarDetails car={car} />
+      {modal && selectedCar && (
+        <Modal closeModal={() => setSelectedCar(null)}>
+          <CarDetails car={selectedCar} />
         </Modal>
       )}
     </div>

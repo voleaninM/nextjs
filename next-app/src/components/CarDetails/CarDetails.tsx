@@ -8,6 +8,7 @@ type Props = {
 };
 export default function CarDetails({ car }: Props) {
   const { make, model } = car;
+
   return (
     <div className={styles.container}>
       <div className={styles.imageContainer}>
@@ -15,6 +16,7 @@ export default function CarDetails({ car }: Props) {
           src={generateCarImageUrl(car)}
           alt="car"
           fill
+          sizes="calc(50.63vw - 64px)"
           className={styles.image}
         />
       </div>
@@ -25,6 +27,7 @@ export default function CarDetails({ car }: Props) {
             src={generateCarImageUrl(car, "29")}
             alt="car"
             fill
+            sizes="calc(16.89vw - 30px)"
             className={styles.image}
           />
         </div>
@@ -33,6 +36,7 @@ export default function CarDetails({ car }: Props) {
             src={generateCarImageUrl(car, "33")}
             alt="car"
             fill
+            sizes="calc(16.89vw - 30px)"
             className={styles.image}
           />
         </div>
@@ -41,6 +45,7 @@ export default function CarDetails({ car }: Props) {
             src={generateCarImageUrl(car, "13")}
             alt="car"
             fill
+            sizes="calc(16.89vw - 30px)"
             className={styles.image}
           />
         </div>

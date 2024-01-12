@@ -6,8 +6,9 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 type Props = {
   children: ReactNode;
+  closeModal: () => void;
 };
-export default function Modal({ children }: Props) {
+export default function Modal({ children, closeModal }: Props) {
   const router = useRouter();
   if (!open) return null;
   return (
@@ -16,7 +17,10 @@ export default function Modal({ children }: Props) {
         <div className={styles.modal}>
           <Button
             style="outline"
-            onClick={router.back}
+            onClick={() => {
+              closeModal();
+              router.back;
+            }}
             additionalStyles={styles.button}
           >
             <Image src="/close.svg" height={20} width={20} alt="close" />
